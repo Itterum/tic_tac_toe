@@ -19,13 +19,13 @@ class ItemProperties {
 Map<Items, ItemProperties> itemMap = {
   Items.X: ItemProperties(
     icon: Icons.clear,
-    bgColor: Colors.blue.shade300,
-    brColor: Colors.blue.shade300,
+    bgColor: Colors.green.shade300,
+    brColor: Colors.green.shade300,
   ),
   Items.O: ItemProperties(
     icon: Icons.circle_outlined,
-    bgColor: Colors.yellow.shade300,
-    brColor: Colors.yellow.shade300,
+    bgColor: Colors.red.shade300,
+    brColor: Colors.red.shade300,
   ),
 };
 
@@ -65,7 +65,7 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
       ),
-      backgroundColor: Colors.blue.shade200,
+      backgroundColor: Colors.green.shade200,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           resetGame();
