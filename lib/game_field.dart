@@ -110,15 +110,26 @@ class _GameFieldState extends State<GameField> {
                             border: Border.all(color: cellColors[i][j]),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Center(
-                            child: Icon(
-                              gameField[i][j] == 'X'
-                                  ? itemMap[Items.X]?.icon
-                                  : gameField[i][j] == 'O'
-                                      ? itemMap[Items.O]?.icon
-                                      : null,
-                              size: 64,
-                              color: Colors.white,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear,
+                            transformAlignment: Alignment.center,
+                            transform: Matrix4.identity()
+                              ..scale(
+                                gameField[i][j] == 'X' || gameField[i][j] == 'O'
+                                    ? 1.0
+                                    : 0.5,
+                              ),
+                            child: Center(
+                              child: Icon(
+                                gameField[i][j] == 'X'
+                                    ? itemMap[Items.X]?.icon
+                                    : gameField[i][j] == 'O'
+                                        ? itemMap[Items.O]?.icon
+                                        : null,
+                                size: 64,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
