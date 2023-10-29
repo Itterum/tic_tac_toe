@@ -8,7 +8,7 @@ class FieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fieldBloc = FieldBloc();
-    fieldBloc.add(GenerateFieldEvent());
+    fieldBloc.add(InitFieldEvent());
 
     return BlocProvider(
       create: (context) => fieldBloc,
@@ -52,7 +52,7 @@ class FieldWidget extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            fieldBloc.add(GenerateFieldEvent());
+            fieldBloc.add(InitFieldEvent());
           },
           tooltip: 'Restart game',
           child: const Icon(Icons.restart_alt_rounded),

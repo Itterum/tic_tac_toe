@@ -5,15 +5,15 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
   Player currentPlayer = Player.cross;
 
   FieldBloc() : super([]) {
-    on<GenerateFieldEvent>(_initField);
+    on<InitFieldEvent>(_initField);
     on<ItemEvent>(_setItem);
   }
 
-  _initField(GenerateFieldEvent event, Emitter<List<Item>> emit) async {
+  _initField(InitFieldEvent event, Emitter<List<Item>> emit) async {
     try {
       final List<Item> field = [];
       currentPlayer = Player.cross;
-      
+
       for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 3; col++) {
           final int index = row * 3 + col;
@@ -55,7 +55,7 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
 
 abstract class FieldEvent {}
 
-class GenerateFieldEvent extends FieldEvent {}
+class InitFieldEvent extends FieldEvent {}
 
 class ItemEvent extends FieldEvent {
   final int index;
