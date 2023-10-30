@@ -72,6 +72,7 @@ class FieldWidget extends StatelessWidget {
       BuildContext context, String winner, FieldBloc fieldBloc) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Winner: $winner"),
