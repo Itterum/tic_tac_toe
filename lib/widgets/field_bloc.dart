@@ -16,7 +16,7 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
     add(InitFieldEvent());
   }
 
-  bool isDraw(List<Item> field) {
+  bool _isDraw(List<Item> field) {
     for (final item in field) {
       if (item.icon == null) {
         return false;
@@ -25,7 +25,7 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
     return true;
   }
 
-  bool checkWinner(IconData icon, List<Item> field) {
+  bool _checkWinner(IconData icon, List<Item> field) {
     for (int row = 0; row < 3; row++) {
       if (field[row * 3].icon == icon &&
           field[row * 3 + 1].icon == icon &&
@@ -94,19 +94,19 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
 
           emit(List.of(state));
 
-          if (checkWinner(Icons.clear, state)) {
+          if (_checkWinner(Icons.clear, state)) {
             showWinnerDialogCallback(
               event.context,
               "Cross",
               event.fieldBloc,
             );
-          } else if (checkWinner(Icons.circle_outlined, state)) {
+          } else if (_checkWinner(Icons.circle_outlined, state)) {
             showWinnerDialogCallback(
               event.context,
               "Circle",
               event.fieldBloc,
             );
-          } else if (isDraw(state)) {
+          } else if (_isDraw(state)) {
             showWinnerDialogCallback(
               event.context,
               "Draw",
