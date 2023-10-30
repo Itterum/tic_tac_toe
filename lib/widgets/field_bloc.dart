@@ -4,9 +4,54 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FieldBloc extends Bloc<FieldEvent, List<Item>> {
   Player currentPlayer = Player.cross;
 
+  late void Function(BuildContext context, String winner, FieldBloc fieldBloc)
+      showWinnerDialogCallback;
+
   FieldBloc() : super([]) {
     on<InitFieldEvent>(_initField);
     on<ItemEvent>(_setItem);
+  }
+
+  void resetField() {
+    add(InitFieldEvent());
+  }
+
+  bool isDraw(List<Item> field) {
+    for (final item in field) {
+      if (item.icon == null) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool checkWinner(IconData icon, List<Item> field) {
+    for (int row = 0; row < 3; row++) {
+      if (field[row * 3].icon == icon &&
+          field[row * 3 + 1].icon == icon &&
+          field[row * 3 + 2].icon == icon) {
+        return true;
+      }
+    }
+
+    for (int col = 0; col < 3; col++) {
+      if (field[col].icon == icon &&
+          field[col + 3].icon == icon &&
+          field[col + 6].icon == icon) {
+        return true;
+      }
+    }
+
+    if ((field[0].icon == icon &&
+            field[4].icon == icon &&
+            field[8].icon == icon) ||
+        (field[2].icon == icon &&
+            field[4].icon == icon &&
+            field[6].icon == icon)) {
+      return true;
+    }
+
+    return false;
   }
 
   _initField(InitFieldEvent event, Emitter<List<Item>> emit) async {
@@ -46,7 +91,28 @@ class FieldBloc extends Bloc<FieldEvent, List<Item>> {
             item.color = Colors.red.shade300;
             currentPlayer = Player.cross;
           }
+
           emit(List.of(state));
+
+          if (checkWinner(Icons.clear, state)) {
+            showWinnerDialogCallback(
+              event.context,
+              "Cross",
+              event.fieldBloc,
+            );
+          } else if (checkWinner(Icons.circle_outlined, state)) {
+            showWinnerDialogCallback(
+              event.context,
+              "Circle",
+              event.fieldBloc,
+            );
+          } else if (isDraw(state)) {
+            showWinnerDialogCallback(
+              event.context,
+              "Draw",
+              event.fieldBloc,
+            );
+          }
         }
       }
     }
@@ -60,8 +126,10 @@ class InitFieldEvent extends FieldEvent {}
 class ItemEvent extends FieldEvent {
   final int index;
   IconData? icon;
+  BuildContext context;
+  FieldBloc fieldBloc;
 
-  ItemEvent(this.index, this.icon);
+  ItemEvent(this.index, this.icon, this.context, this.fieldBloc);
 }
 
 enum Player { cross, circle }
