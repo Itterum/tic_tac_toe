@@ -23,10 +23,6 @@ jobs:
         uses: dart-lang/setup-dart@v1
         with:
           sdk: '3.0.3'
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
       - run: flutter config --enable-web
       - run: flutter pub get
       - run: flutter build web --release
