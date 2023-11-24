@@ -33,7 +33,7 @@ jobs:
           git config --global user.name Itterum
           git status
           git remote add origin https://github.com/Itterum/tic-tac-toe.git
-          git checkout -b gh-pages
+          git checkout -b gh-pages main
           git add --all
           git commit -m "update"
           git push origin gh-pages -f
