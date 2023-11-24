@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install Dart
-        uses: dawidd6/action-setup-dart@v2
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: '>=3.0.3 <4.0.0'
       - name: Setup Flutter
